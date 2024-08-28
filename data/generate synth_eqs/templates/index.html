@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Button Text Update</title>
+
+    <script 
+    src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+    </script>
+
+    <style>
+        html{
+            background-color: black;
+        }
+
+
+        #stuff{
+            /* height: fit-content;
+            width: fit-content; */
+            height: 64px;
+            width: fit-content;
+            padding: 10px;
+            margin: 20px;
+            background-color: white;
+            color: black;
+            text-align:center;
+            letter-spacing: 5px;
+            vertical-align: middle;
+            display: flex;
+            /*align-content: center;*/
+            justify-content: {{justify_item}}; /**/
+            align-items: {{align_item}};
+            font-family: {{font_family}};
+            font-style: {{font_style}};
+            font-size: {{font_size}};
+            font-weight: {{font_weight}};
+        }
+
+        button{
+            position: absolute;
+            bottom: 50;
+            margin: 30px;
+        }
+
+        canvas{
+            margin: 100px 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="stuffm">
+        <p id="stuff">
+            {{ sym_text }}
+        </p>
+    </div>
+
+    <!-- <form action="/" method="POST">
+        <button onclick="takeshot()" type="submit" >Press 4 luv</button>
+    </form> -->
+
+    <button onclick="send_post(), takeshot_full()">Press 4 luv</button>
+
+
+    <div id="output"></div>
+ 
+
+
+    <script type="text/javascript">
+        
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+
+        function refresh() {
+            window.location.reload()
+        }
+        function send_post() {
+
+            let data = {element: "barium"};
+
+            fetch(document.URL, {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'}, 
+            body: JSON.stringify("data")
+            })
+            
+        };            
+        
+
+        function takeshot() {
+            console.log("nigatook")
+
+            let div =document.getElementById('stuff');
+ 
+            html2canvas(div).then(
+                function (canvas) {
+                    document
+                        .getElementById('output')
+                        .appendChild(canvas);
+                    
+                    var dataURL = canvas.toDataURL("image/png", 1.0);
+                    downloadImage(dataURL, "{{save_name}}");
+
+                });
+        }
+
+        function downloadImage(data, filename = 'untitled.png') {
+            var a = document.createElement('a');
+            a.href = data;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+        }
+
+        async function takeshot_full() {
+            // f = takeshot();
+            // await delay(100)
+            // f.onload = refresh();
+
+            await takeshot()
+            
+            await delay(100)
+
+            refresh()
+        }
+
+        async function clicker() {
+            await delay(100)
+
+            document.getElementsByTagName("button")[0].click()
+            await delay(100)
+            
+        }
+        
+        clicker()
+
+    </script>
+</body>
+</html>
