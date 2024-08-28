@@ -44,10 +44,14 @@ def line_bw_furthest_points(nimg):
     l_ind = (inds[0][-1],inds[1][-1])
 
     res = np.zeros_like(nimg)
+    line_coors = skimage.draw.line(*f_ind, *l_ind)
+    res[*line_coors] = 1
+
+    return res.astype(np.uint8)
 
 
 ex_ln_img = line_bw_furthest_points(neighboured_img)
 
 # plt.set_cmap('jet')
 plt.rcParams['image.cmap'] = 'Dark2'
-imtc.show_subimgs_onRow([img, img_sk, neighboured_img])
+imtc.show_subimgs_onRow([img, img_sk, neighboured_img, ex_ln_img])
