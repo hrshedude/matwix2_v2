@@ -226,7 +226,7 @@ def show_subimgs_onRow(subimgs, savet=False):
         plt.imshow(subimg)
         plt.yticks([])
         plt.xticks([])
-    plt.colorbar()
+    # plt.colorbar()
     if savet==False:
         plt.show()
     else:
